@@ -7,10 +7,17 @@ services:
           build: 
             context: "./"
             dockerfile: Dockerfile
+          environment:
+            - DB_PASSWORD=postgres
+            - MYSQL_DATABASE=postgres
+            - DB_HOST=db
+            - DB_USER=postgres
+            - DB_PORT=5432
+            - DB_NAME=postgres
           ports:
             - 8000:8080
           volumes:
-            - ./backend/api:/usr/src/app/
+            - ./:/usr/src/app/
           depends_on: 
             - db
           networks: 
@@ -20,11 +27,14 @@ services:
           container_name: "database"
           restart: always
           environment: 
-               POSTGRES_PASSWORD: admin
+               POSTGRES_USER: postgres
+               POSTGRES_PASSWORD: postgres
+               POSTGRES_DB: postgres
+               PGDATA: /var/lib/postgresql/data
           volumes: 
-              - ./backend/.dbdata:/var/lib/postgresql/data
+              - ./.dbdata:/var/lib/postgresql/data
           ports: 
-              - 54032:5432
+              - 5432:5432
           networks: 
               - fullstack
 
