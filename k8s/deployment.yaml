@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: container-grpc-beer
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-go
+  template:
+    metadata:
+      labels:
+        app: api-go
+    spec:
+      containers:
+        - name: container-grpc-beer
+          image: igorarizadevelop/
+          ports:
+            - containerPort: 5052
+          env:
+            - name: PGUSER
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config-beer
+                  key: PGUSER
+            - name: PGPASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config-beer
+                  key: PGPASSWORD
+            - name: PGHOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config-beer
+                  key: PGHOST
+            - name: PGPORT
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config-beer
+                  key: PGPORT
+            - name: PGDATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config-beer
+                  key: PGDATABASE

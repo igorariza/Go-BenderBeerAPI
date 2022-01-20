@@ -1,0 +1,67 @@
+
+syntax = "proto3";
+
+package beer.v1alpha1;
+
+option go_package = "github.com/igorariza/gogrpc-apibeer/gen/go/beer/v1alpha1";
+
+service BeerAPIService {     
+        ///CRUD
+        rpc CreateBeer(CreateBeerRequest) returns (CreateBeerResponse);
+        rpc ListBeers(ListBeersRequest) returns (ListBeersResponse);
+        rpc DeleteBeer(DeleteBeerRequest) returns (DeleteBeerResponse);
+        rpc UpdateBeer(UpdateBeerRequest) returns (UpdateBeerResponse);
+        rpc GetOneBeer(GetOneBeerRequest) returns (GetOneBeerResponse);  
+}
+
+message Beer {
+    uint32 id = 1;
+    string name = 2;
+    string brewery = 3;
+    string country = 4;
+    int32 price = 5;
+    int32 currency = 6;
+}
+
+message CreateBeerRequest {
+    Beer beer = 1;
+}
+
+message CreateBeerResponse {
+    Beer beer = 1;
+    string msg = 2;
+}
+
+message ListBeersRequest {
+    Beer beer = 1;
+}
+
+message ListBeersResponse {
+    repeated Beer beer = 1;
+    string msg = 2;
+}
+
+message DeleteBeerRequest {
+    uint32 beer_id = 1;
+}
+
+message DeleteBeerResponse {
+    string msg = 1;
+}
+
+message UpdateBeerRequest {
+    Beer beer = 1;
+}
+
+message UpdateBeerResponse {
+    string msg = 1;
+}
+
+message GetOneBeerRequest {
+    uint32 beer_id = 1;
+}
+
+message GetOneBeerResponse {
+    Beer beer = 1;
+    string msg = 2;
+}
